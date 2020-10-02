@@ -17,18 +17,18 @@ function buttonClicked (playerMove) {
   //console.log(buttonRock + ' został kliknięty');
   //console.log(buttonScissors + ' został kliknięty');
 
-  function getMoveName(MoveId){
-    console.log('wywołano funkcje getMoveName z argumentem: ' + MoveId);
+  function playerInput = prompt('Wybierz swój ruch! 1: kamień, 2: papier, 3: nożyce') {
+    console.log('wpisana odpowiedż to: ' + playerInput);
 
-    if (MoveId == 1) {
-      return 'kamień';
-    } else if (MoveId == 2) {
-      return 'nożyce';
-    } else if (MoveId == 3) {
-      return 'papier';
+    if (playerInput == 1) {
+      playerMove = 'kamień';
+    } else if (playerInput == 2) {
+      playerMove = 'nożyce';
+    } else if (playerInput == 3) {
+      playerMove = 'papier';
     } else {
-      printMessage('Nie znam tego ruchu' + MoveId + '. Zakładam, że chodziło o "kamień", "nożyce" lub "papier".');
-      return 'niewiadomo-co'; 
+      printMessage('Nie znam tego ruchu' + playerInput + '. Zakładam, że chodziło o "kamień", "nożyce" lub "papier".');
+      playerMove 'niewiadomo-co'; 
     }
   }
   
@@ -56,7 +56,7 @@ function displayResult(playerMove, computerMove) {
     printMessage('Wygrywasz!');
   } else if (playerMove == 'nożyce' && computerMove == 'papier') {
     printMessage('Wygrywasz!');
-  } else if (playerMove == computerMove); {
+  } else if (playerMove == computerMove) {
     printMessage('Remis!');
   } else {
     printMessage('Przegrywasz :(');
@@ -81,7 +81,7 @@ function displayResult(playerMove, computerMove) {
 //}
 
 
-playerMove = MoveId;
+playerInput = playerMove;
 console.log('ruch gracza to: ' + playerMove);
 randomNumber = Math.floor(Math.random() * 3 + 1);
 console.log('wylosowana liczba to: ' + randomNumber);
