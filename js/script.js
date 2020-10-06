@@ -1,100 +1,80 @@
- const buttonRock = document.getElementById('button-rock'),
-      buttonPaper = document.getElementById('button-paper'),
-   buttonScissors = document.getElementById('button-scissors')
+    // odnośniki do HTML
+    // wybieranie butonów
+    const buttonRock = document.querySelector('#button-rock');
+    const buttonPaper = document.querySelector('#button-paper');
+    const buttonScissors = document.querySelector('#button-scissors');
+    // wyświetla wiadomość na stronie
+    const output = document.querySelector('#message');
+    // wyświetla wynik z HTML result
+    const result = document.querySelector('#result');
 
-//var buttonRock, buttonPaper, buttonScissors;
-//buttonRock = document.getElementById('button-rock');
-//buttonPaper = document.getElementById('button-paper');
-//buttonScissors = document.getElementById('button-scissors');
+    // zmienne globalne, beda liczyć wynik po każdej rundzie, 
+    // muszą być zadeklarowane poza funkcją
+    let playerScore = 0;
+    let computerScore = 0;
 
-function buttonClicked (playerMove) {
-  clearMessages();
-  console.log(playerMove + ' został kliknięty');
-}
-  //function buttonClicked(buttonRock, buttonPaper, buttonScissors) {
-  //clearMessages();
-  //console.log(buttonPaper + ' został kliknięty');
-  //console.log(buttonRock + ' został kliknięty');
-  //console.log(buttonScissors + ' został kliknięty');
+    // nasłuchiwacze, czuwają czy na butonach nie pojawia się zmiana, kliknięcie
+    buttonRock.addEventListener('click', function(){ 
+     playGame('kamień')
+    })
+    buttonPaper.addEventListener('click', function(){
+     playGame('papier')
+     })
+     buttonScissors.addEventListener('click', function(){ 
+      playGame('nożyce')
+      })
 
-  function playerInput = prompt('Wybierz swój ruch! 1: kamień, 2: papier, 3: nożyce') {
-    console.log('wpisana odpowiedż to: ' + playerInput);
+    // losowanie wyboru komputera
+    function getComputerMove() {
+      const randomNumber = Math.floor(Math.random() * 3 + 1);
 
-    if (playerInput == 1) {
-      playerMove = 'kamień';
-    } else if (playerInput == 2) {
-      playerMove = 'nożyce';
-    } else if (playerInput == 3) {
-      playerMove = 'papier';
-    } else {
-      printMessage('Nie znam tego ruchu' + playerInput + '. Zakładam, że chodziło o "kamień", "nożyce" lub "papier".');
-      playerMove 'niewiadomo-co'; 
+      if (randomNumber == 1) return 'kamień';
+      else if (randomNumber == 2) return 'papier';
+      else if (randomNumber == 3) return 'nożyce';
     }
-  }
+
+   // ustalenie zwyciezcy
+   function getWinner(player, computer) {
+    console.log('wywołano funkcje getWinner z argumentami: ' + player + ', ' + computer);
   
-//var argComputerMove, argMoveId, argPlayerMove, computerMove, playerInput, playerMove;
-//function getMoveName(argMoveId) {
-  //console.log('wywołano funkcję getMoveName z argumentem: ' + argMoveId);
-  //if (argMoveId == 1) {
-    //return 'kamień';
- // } else if (argMoveId == 2) {
-   // return 'nożyce';
-  //} else if (argMoveId == 3) {
-    //return 'papier';
-  //} else {
-    //printMessage('Nie znam tego ruchu ' + argMoveId + '. Zakładam, że chodziło o "kamień", "nożyce" lub "papier".');
-    //return 'niewiadomo-co';
-  //}
-//}
-
-function displayResult(playerMove, computerMove) {
-  console.log('wywołano funkcje displayResult z argumentami: ' + playerMove + ', ' + computerMove);
-
-  if (playerMove == 'papier' && computerMove == 'kamień') {
-    printMessage('Wygrywasz!');
-  } else if (playerMove == 'kamień' && computerMove == 'nożyce') {
-    printMessage('Wygrywasz!');
-  } else if (playerMove == 'nożyce' && computerMove == 'papier') {
-    printMessage('Wygrywasz!');
-  } else if (playerMove == computerMove) {
-    printMessage('Remis!');
-  } else {
-    printMessage('Przegrywasz :(');
+    if (player == 'papier' && computer == 'kamień') {
+      playerScore = playerScore + 1;
+      return 'Wygrywasz!';
+    } else if (player == 'kamień' && computer == 'nożyce') {
+      playerScore = playerScore + 1;
+      return 'Wygrywasz!';
+    } else if (player == 'nożyce' && computer == 'papier') {
+      playerScore = playerScore + 1;
+      return 'Wygrywasz!';
+    } else if (player == computer) {
+      return 'Remis!';
+    } else {
+      computerScore = computerScore +1;
+      return 'Przegrywasz :(';
+    }
+    
   }
-  printMessage('Zagrałem ' + computerMove + ', a Ty ' + playerMove);
-}
 
-//function displayResult(argPlayerMove, argComputerMove) {
-  //console.log('wywołano funkcję displayResults z argumentami: ' + argPlayerMove + ', ' + argComputerMove);
-  //if (argPlayerMove == 'papier' && argComputerMove == 'kamień') {
-    //printMessage('Wygrywasz!');
-  //} else if (argPlayerMove == 'kamień' && argComputerMove == 'nożyczki') {
-    //printMessage('Wygrywasz!');
-  //} else if (argPlayerMove == 'nożyce' && argComputerMove == 'papier') {
-    //printMessage('Wygrywasz!');
-  //} else if (argPlayerMove == argComputerMove) {
-    //printMessage('Remis!');
-  //} else {
-    //printMessage('Przegrywasz :(');
-  //}
-  //printMessage('Zagrałem ' + argComputerMove + ', a Ty ' + argPlayerMove);
-//}
+    // wypisz wiadomość'
+    function printMessage(msg) {
+      output.innerHTML = msg;
+    }
 
+    // wwyświetl wynik w html
+    function renderResult() {
+     result.innerHTML = playerScore + ' : ' + computerScore;
+    }
 
-playerInput = playerMove;
-console.log('ruch gracza to: ' + playerMove);
-randomNumber = Math.floor(Math.random() * 3 + 1);
-console.log('wylosowana liczba to: ' + randomNumber);
-computerMove = getMoveName(randomNumber);
-console.log('ruch komputera to: ' + computerMove);
-displayResult(playerMove, computerMove);
+    // start rundy
+    function playGame(playerMove) {
 
-buttonRock.addEventListener('click', function(){ 
-  buttonClicked('kamień')
-});
-buttonPaper.addEventListener('click', function(){
-   buttonClicked('papier')
- });
- buttonScissors.addEventListener('click', function(){ 
-   buttonClicked('nożyce')
-  });
+       //ustalanie wyboru komputera
+       const computerMove = getComputerMove();
+
+       //ustalenie zwyciezcy
+       const winner = getWinner(playerMove, computerMove);
+       printMessage(winner);
+
+       // pokaż wynik
+       renderResult()
+    }
